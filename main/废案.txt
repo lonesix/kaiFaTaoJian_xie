@@ -1,0 +1,486 @@
+//以下是每个传感器处理函数的空实现，需要根据具体需求来填充
+void mpu6050_cmd_deal(JsonData *data)
+{
+    switch (data->sensorData)
+    {
+        case MPU6050_DATA_ACCE_X:
+            printf("MPU6050传感器数据类型名称是：acce_x\n");
+            break;
+        case MPU6050_DATA_ACCE_Y:
+            printf("MPU6050传感器数据类型名称是：acce_y\n");
+            break;
+        case MPU6050_DATA_ACCE_Z:
+            printf("MPU6050传感器数据类型名称是：acce_z\n");
+            break;
+        case MPU6050_DATA_GYRO_X:
+            printf("MPU6050传感器数据类型名称是：gyro_x\n");
+            break;
+        case MPU6050_DATA_GYRO_Y:
+            printf("MPU6050传感器数据类型名称是：gyro_y\n");
+            break;
+        case MPU6050_DATA_GYRO_Z:
+            printf("MPU6050传感器数据类型名称是：gyro_z\n");
+            break;
+        case MPU6050_DATA_TEMP:
+            printf("MPU6050传感器数据类型名称是：temp\n");
+            break;
+        case MPU6050_DATA_CUSTOM:
+            printf("MPU6050传感器数据类型名称是：custom\n");
+            break;
+    
+    default:
+        break;
+    }
+}
+void rc522_cmd_deal(JsonData *data)
+{
+
+}
+void dht11_cmd_deal(JsonData *data)
+{
+}
+void body_cmd_deal(JsonData *data)
+{
+}
+void hall_cmd_deal(JsonData *data)
+{
+}
+void light_cmd_deal(JsonData *data)
+{
+}
+void soil_cmd_deal(JsonData *data)
+{
+}
+void flame_cmd_deal(JsonData *data)
+{
+}
+void waterlevel_cmd_deal(JsonData *data)
+{
+}
+void ws2812_cmd_deal(JsonData *data)
+{
+}
+void sg90_cmd_deal(JsonData *data)
+{
+}
+// switch (data->sensorType) {
+    //     case SENSOR_MPU6050:
+    //         mpu6050_cmd_deal(data);
+    //         break;
+    //     case SENSOR_RC522:
+    //         rc522_cmd_deal(data);
+    //         break;
+    //     case SENSOR_DHT11:
+    //         dht11_cmd_deal(data);
+    //         break;
+    //     case SENSOR_BODY:
+    //         body_cmd_deal(data);
+    //         break;
+    //     case SENSOR_HALL:
+    //         hall_cmd_deal(data);
+    //         break;
+    //     case SENSOR_LIGHT:
+    //         light_cmd_deal(data);
+    //         break;
+    //     case SENSOR_SOIL:
+    //         soil_cmd_deal(data);
+    //         break;
+    //     case SENSOR_FLAME:
+    //         flame_cmd_deal(data);
+    //         break;
+    //     case SENSOR_WATERLEVEL:
+    //         waterlevel_cmd_deal(data);
+    //         break;
+    //     case SENSOR_WS2812:
+    //         ws2812_cmd_deal(data);
+    //         break;
+    //     case SENSOR_SG90:
+    //         sg90_cmd_deal(data);
+    //         break;
+    //     default:
+    //         // 处理未知传感器类型
+    //         fprintf(stderr, "Unknown sensor type\n");
+    //         break;
+    // }
+    // 每个传感器的处理函数原型
+void mpu6050_cmd_deal(JsonData *data);
+void rc522_cmd_deal(JsonData *data);
+void dht11_cmd_deal(JsonData *data);
+void body_cmd_deal(JsonData *data);
+void hall_cmd_deal(JsonData *data);
+void light_cmd_deal(JsonData *data);
+void soil_cmd_deal(JsonData *data);
+void flame_cmd_deal(JsonData *data);
+void waterlevel_cmd_deal(JsonData *data);
+void ws2812_cmd_deal(JsonData *data);
+void sg90_cmd_deal(JsonData *data);
+// /****************************************************************** */
+// // 定义传感器枚举类型
+// typedef enum {
+//     SENSOR_MPU6050,
+//     SENSOR_RC522,
+//     SENSOR_DHT11,
+//     SENSOR_BODY,
+//     SENSOR_HALL,
+//     SENSOR_LIGHT,
+//     SENSOR_SOIL,
+//     SENSOR_FLAME,
+//     SENSOR_WATERLEVEL,
+//     SENSOR_WS2812,
+//     SENSOR_SG90,
+//     SENSOR_UNKNOWN // 用于处理未知输入
+// } SensorType;
+// // 定义传感器名称的字符串数组和对应的枚举值映射表
+// typedef struct {
+//     const char* name;
+//     SensorType type;
+// } SensorMapping;
+ 
+// const SensorMapping sensorMappings[] = {
+//     {"MPU6050", SENSOR_MPU6050},
+//     {"RC522", SENSOR_RC522},
+//     {"DHT11", SENSOR_DHT11},
+//     {"Body", SENSOR_BODY},
+//     {"Hall", SENSOR_HALL},
+//     {"Light", SENSOR_LIGHT},
+//     {"Soil", SENSOR_SOIL},
+//     {"Flame", SENSOR_FLAME},
+//     {"WaterLevel", SENSOR_WATERLEVEL},
+//     {"WS2812", SENSOR_WS2812},
+//     {"SG90", SENSOR_SG90}
+// };
+// #define SENSOR_COUNT (sizeof(sensorMappings) / sizeof(sensorMappings[0]))
+ 
+// // 根据输入字符串返回传感器枚举值的函数
+// SensorType getSensorTypeFromString(const char* input) {
+//     for (int i = 0; i < SENSOR_COUNT; i++) {
+//         if (strcmp(input, sensorMappings[i].name) == 0) {
+//             return sensorMappings[i].type;
+//         }
+//     }
+//     return SENSOR_UNKNOWN; // 若未找到匹配的字符串，则返回未知枚举值
+// }
+// /****************************************************************** */
+// // 定义MPU6050传感器数据类型的枚举
+// typedef enum {
+//     MPU6050_DATA_ACCE_X,
+//     MPU6050_DATA_ACCE_Y,
+//     MPU6050_DATA_ACCE_Z,
+//     MPU6050_DATA_GYRO_X,
+//     MPU6050_DATA_GYRO_Y,
+//     MPU6050_DATA_GYRO_Z,
+//     MPU6050_DATA_TEMP,
+//     MPU6050_DATA_CUSTOM,
+//     MPU6050_DATA_UNKNOWN // 用于处理未知输入，特定于MPU6050
+// } MPU6050DataType;
+ 
+// // 定义字符串到枚举值的映射表
+// typedef struct {
+//     const char* name;
+//     MPU6050DataType type;
+// } MPU6050DataMapping;
+ 
+// const MPU6050DataMapping mpu6050DataMappings[] = {
+//     {"acce_x", MPU6050_DATA_ACCE_X},
+//     {"acce_y", MPU6050_DATA_ACCE_Y},
+//     {"acce_z", MPU6050_DATA_ACCE_Z},
+//     {"gyro_x", MPU6050_DATA_GYRO_X},
+//     {"gyro_y", MPU6050_DATA_GYRO_Y},
+//     {"gyro_z", MPU6050_DATA_GYRO_Z},
+//     {"temp", MPU6050_DATA_TEMP},
+//     {"custom", MPU6050_DATA_CUSTOM}
+// };
+ 
+// #define MPU6050_DATA_COUNT (sizeof(mpu6050DataMappings) / sizeof(mpu6050DataMappings[0]))
+ 
+// // 根据输入字符串返回MPU6050传感器数据类型的枚举值的函数
+// MPU6050DataType getMPU6050DataTypeFromString(const char* input) {
+//     for (int i = 0; i < MPU6050_DATA_COUNT; i++) {
+//         if (strcmp(input, mpu6050DataMappings[i].name) == 0) {
+//             return mpu6050DataMappings[i].type;
+//         }
+//     }
+//     return MPU6050_DATA_UNKNOWN; // 若未找到匹配的字符串，则返回未知枚举值
+// }
+// /**************************************************************************** */
+// // 定义RFID RC522数据类型的枚举
+// typedef enum {
+//     RC522_DATA_CARD_ID,   // 卡片ID
+//     RC522_DATA_CARD_STATE, // 卡片状态
+//     RC522_DATA_CUSTOM,    // 自定义数据
+//     RC522_DATA_UNKNOWN    // 用于处理未知输入
+// } RC522DataType;
+ 
+// // 定义字符串到枚举值的映射表
+// typedef struct {
+//     const char* name;
+//     RC522DataType type;
+// } RC522DataMapping;
+ 
+// const RC522DataMapping rc522DataMappings[] = {
+//     {"card_id", RC522_DATA_CARD_ID},
+//     {"card_state", RC522_DATA_CARD_STATE},
+//     {"custom", RC522_DATA_CUSTOM}
+// };
+ 
+// #define RC522_DATA_COUNT (sizeof(rc522DataMappings) / sizeof(rc522DataMappings[0]))
+ 
+// // 根据输入字符串返回RFID RC522数据类型的枚举值的函数
+// RC522DataType getRC522DataTypeFromString(const char* input) {
+//     for (int i = 0; i < RC522_DATA_COUNT; i++) {
+//         if (strcmp(input, rc522DataMappings[i].name) == 0) {
+//             return rc522DataMappings[i].type;
+//         }
+//     }
+//     return RC522_DATA_UNKNOWN; // 若未找到匹配的字符串，则返回未知枚举值
+// }
+// /************************************************************************* */
+// // 定义DHT11数据类型的枚举
+// typedef enum {
+//     DHT11_DATA_TEMP,   // 温度
+//     DHT11_DATA_HUM,    // 湿度
+//     DHT11_DATA_UNKNOWN // 用于处理未知输入
+// } DHT11DataType;
+ 
+// // 定义字符串到枚举值的映射表
+// typedef struct {
+//     const char* name;
+//     DHT11DataType type;
+// } DHT11DataMapping;
+ 
+// const DHT11DataMapping dht11DataMappings[] = {
+//     {"temp", DHT11_DATA_TEMP},
+//     {"hum", DHT11_DATA_HUM}
+// };
+ 
+// #define DHT11_DATA_COUNT (sizeof(dht11DataMappings) / sizeof(dht11DataMappings[0]))
+ 
+// // 根据输入字符串返回DHT11数据类型的枚举值的函数
+// DHT11DataType getDHT11DataTypeFromString(const char* input) {
+//     for (int i = 0; i < DHT11_DATA_COUNT; i++) {
+//         if (strcmp(input, dht11DataMappings[i].name) == 0) {
+//             return dht11DataMappings[i].type;
+//         }
+//     }
+//     return DHT11_DATA_UNKNOWN; // 若未找到匹配的字符串，则返回未知枚举值
+// }
+// /******************************** */
+// // 定义身体大厅数据类型的枚举
+// typedef enum {
+//     BODY_HALL_DATA_RAW,   // 原始数据
+//     BODY_HALL_DATA_UNKNOWN // 用于处理未知输入
+// } BodyHallDataType;
+ 
+// // 定义字符串到枚举值的映射表
+// typedef struct {
+//     const char* name;
+//     BodyHallDataType type;
+// } BodyHallDataMapping;
+ 
+// const BodyHallDataMapping bodyHallDataMappings[] = {
+//     {"raw", BODY_HALL_DATA_RAW}
+//     // 如果需要添加"value"的映射，可以在这里添加
+//     // {"value", BODY_HALL_DATA_VALUE}
+// };
+ 
+// #define BODY_HALL_DATA_COUNT (sizeof(bodyHallDataMappings) / sizeof(bodyHallDataMappings[0]))
+ 
+// // 根据输入字符串返回身体大厅数据类型的枚举值的函数
+// BodyHallDataType getBodyHallDataTypeFromString(const char* input) {
+//     for (int i = 0; i < BODY_HALL_DATA_COUNT; i++) {
+//         if (strcmp(input, bodyHallDataMappings[i].name) == 0) {
+//             return bodyHallDataMappings[i].type;
+//         }
+//     }
+//     return BODY_HALL_DATA_UNKNOWN; // 若未找到匹配的字符串，则返回未知枚举值
+// }
+// /************************************ */
+/*********************************************************************
+ * 
+ * START UP
+ */
+/**@brief Application main function.
+ */
+
+// void app_main(void){
+
+//     // // 创建一个WS2812灯带
+//     // ws2812_strip_t* WS2812=ws2812_create();
+    
+//     // //点亮灯带 颜色(255,0,0)
+//     // led_set_on(WS2812,COLOR_RGB(255,0,0));
+//     sg90_init();
+//     while(1)                                                                // 任务都是一个无限循环，不能返回
+//     {
+    
+//     sg90_SetAngle(30);//归0
+//     vTaskDelay(200 / portTICK_PERIOD_MS);       
+//     sg90_SetAngle(60);//归0
+//     vTaskDelay(200 / portTICK_PERIOD_MS);   
+//     sg90_SetAngle(90);//归0
+//     vTaskDelay(200 / portTICK_PERIOD_MS);   
+//     sg90_SetAngle(60);//归0
+//     vTaskDelay(200 / portTICK_PERIOD_MS);   
+//                                                      // 100ms
+//     }
+//     vTaskDelay(100000/portTICK_PERIOD_MS);
+// }
+// #include <esp_log.h>
+// #include "rc522.h"
+// #include "driver/rc522_spi.h"
+// #include "rc522_picc.h"
+
+// static const char *TAG = "rc522-basic-example";
+
+// #define RC522_SPI_BUS_GPIO_MISO    (16)
+// #define RC522_SPI_BUS_GPIO_MOSI    (17)
+// #define RC522_SPI_BUS_GPIO_SCLK    (18)
+// #define RC522_SPI_SCANNER_GPIO_SDA (5)
+// #define RC522_SCANNER_GPIO_RST     (45) // soft-reset
+
+// static rc522_spi_config_t driver_config = {
+//     .host_id = SPI3_HOST,
+//     .bus_config = &(spi_bus_config_t){
+//         .miso_io_num = RC522_SPI_BUS_GPIO_MISO,
+//         .mosi_io_num = RC522_SPI_BUS_GPIO_MOSI,
+//         .sclk_io_num = RC522_SPI_BUS_GPIO_SCLK,
+//     },
+//     .dev_config = {
+//         .spics_io_num = RC522_SPI_SCANNER_GPIO_SDA,
+//     },
+//     .rst_io_num = RC522_SCANNER_GPIO_RST,
+// };
+
+// static rc522_driver_handle_t driver;
+// static rc522_handle_t scanner;
+
+// static void on_picc_state_changed(void *arg, esp_event_base_t base, int32_t event_id, void *data)
+// {
+//     rc522_picc_state_changed_event_t *event = (rc522_picc_state_changed_event_t *)data;
+//     rc522_picc_t *picc = event->picc;
+
+//     if (picc->state == RC522_PICC_STATE_ACTIVE) {
+//         rc522_picc_print(picc);
+//     }
+//     else if (picc->state == RC522_PICC_STATE_IDLE && event->old_state >= RC522_PICC_STATE_ACTIVE) {
+//         ESP_LOGI(TAG, "Card has been removed");
+//     }
+// }
+
+// void app_main()
+// {
+//     rc522_spi_create(&driver_config, &driver);
+//     rc522_driver_install(driver);
+
+//     rc522_config_t scanner_config = {
+//         .driver = driver,
+//     };
+
+//     rc522_create(&scanner_config, &scanner);
+//     rc522_register_events(scanner, RC522_EVENT_PICC_STATE_CHANGED, on_picc_state_changed, NULL);
+//     rc522_start(scanner);
+// }
+// // 主函数
+// void app_main(void)
+// {
+// 	esp_err_t result;
+//     uint8_t i,j;
+//     int bodyVal,hallVal;
+//         // // 创建一个WS2812灯带
+//     ws2812_strip_t* WS2812=ws2812_create();
+    
+//     //点亮灯带 颜色(255,0,0)
+//     led_set_on(WS2812,COLOR_RGB(255,0,0));
+//     DHT11_Init();
+//     mpu6050_init();
+//     Body_Init();
+//     Hall_Init();
+//     nADC_init();
+//     while(1)
+//     {
+//         DHT11();
+//         mpu6050_read();
+//         bodyVal = Body_read();
+//         hallVal = Hall_read();
+//         printf("Body:%d,Hall:%d\r\n",bodyVal,hallVal);
+//         print_adc();
+//         vTaskDelay(2000/portTICK_PERIOD_MS);
+//     }
+// }
+
+
+// void app_main(void)
+// {
+//     ESP_ERROR_CHECK(nvs_flash_init());
+
+//     // NFC_Init(); 
+//         sg90_init();
+//     sg90_SetAngle(80);//归0                                                            // NFC模块初始化
+//     NFC_GPIO_Init();
+
+//     NFC_SPI_Init();
+//     MFRC522_Init();
+
+//     /*-------------------------- 创建线程 ---------------------------*/
+//     xTaskCreate(monitor_task, "monitor_task", 2048*2, NULL, 5, NULL);
+// }
+// typedef enum
+// {
+//     NONE=0,
+//     ACTIVE=1
+// } card_state_t;
+
+
+/*********************************************************************
+ * LOCAL FUNCTIONS
+ */
+/**
+ @brief 事件处理业务
+ @param 无
+ @return 无
+*/
+static void monitor_task(void *arg)
+{
+    static card_state_t state = NONE;
+    static card_state_t old_state = NONE;
+    
+    // 创建一个WS2812灯带
+    // ws2812_strip_t* WS2812=ws2812_create();
+    // sg90_SetAngle(30);//归0
+    // //点亮灯带 颜色(255,0,0)
+    // led_set_on(WS2812,COLOR_RGB(255,0,0));
+    while(1)                                                                // 任务都是一个无限循环，不能返回
+    {
+
+        uint8_t card[4];
+        uint8_t ret;
+        ret = MFRC522_ReadCardSerialNo(card);
+        
+        // ESP_LOGI(TAG, "cardret: %02x", ret);
+        if (ret != 2)
+        {
+            /* code */
+            state = ACTIVE;
+            
+        }else{
+            state = NONE;
+        }
+        if (old_state == NONE && state == ACTIVE)
+        {
+            /* code */
+            ESP_LOGI(TAG, "card: %02x%02x%02x%02x", card[0], card[1], card[2], card[3]);
+            sg90_SetAngle(90);//
+            vTaskDelay(1000/portTICK_PERIOD_MS);
+        }else if (old_state == ACTIVE && state == NONE)
+        {
+            /* code */
+            ESP_LOGI(TAG, "Card has been removed");
+            sg90_SetAngle(0);//归0
+            vTaskDelay(1000/portTICK_PERIOD_MS);
+        }
+        
+        
+        old_state = state;
+        vTaskDelay(100 / portTICK_PERIOD_MS);                                                        // 100ms
+    }
+}
