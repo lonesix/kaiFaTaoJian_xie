@@ -574,29 +574,128 @@ void ProcessReceivedJson(cJSON *root)
             // if (cJSON_IsString(text_item))
 
 }
-
+static void Updata_Demo();
+extern bool Timer_flag;
+void trig_Timer(const int ms);
 /**
  @brief 事件处理业务
  @param 无
  @return 无
 */
+bool IsTimer = false ;//是否开启定时任务
+bool Istrig = true ;//是否开启触发任务
 static void Demo_task(void *arg)
 {
+
     uart_init();
     uint8_t InitTime = 1;
-    vTaskDelay(1000*InitTime/portTICK_PERIOD_MS);
+    vTaskDelay(3000*InitTime/portTICK_PERIOD_MS);
     ESP_LOGI("Demo","Init finished");
+    
+    if(IsTimer)Updata_Demo();//开启定时上传
     sendData("{\"Init\":1}\r\n");
     while (1)
     {
         receiveDataCjson();
         vTaskDelay(10/portTICK_PERIOD_MS);
+        //定时上传具体任务
+        if (Timer_flag && IsTimer)
+        {
+            //发送根据协议主动上报温度
+            DHT11();
+            JsonData DHT11_hum ={
+                .id = 0,
+                .sensorType = SENSOR_DHT11,
+                .name = "DHT11",
+                .property = "hum",
+                .sensorData = DHT11_DATA_HUM
+            };
+            ReturnJson(&DHT11_hum);
+            Timer_flag = false;
+        }
+        //触发任务
+        if (Istrig)
+        {
+        rc522_read_cardid();
+            if (rc522.value == ACTIVE)
+            {
+                ESP_LOGI(TAG, "card: %02x%02x%02x%02x", rc522.card[0], rc522.card[1], rc522.card[2], rc522.card[3]);
+                JsonData RC522_cardid ={
+                .id = 0,
+                .sensorType = SENSOR_RC522,
+                .name = "RC522",
+                .property = "card_id",
+                .sensorData = RC522_DATA_CARD_ID
+            };
+            ReturnJson(&RC522_cardid);
+            Istrig = false;//防止短时间内重复触发
+            trig_Timer(3000);//定时开启触发任务
+            }else
+            {
+
+            }
+        }
     }
     
     vTaskDelay(1000/portTICK_PERIOD_MS);
     vTaskDelete(NULL);
 }
 
+//定时上报任务demo
+TimerHandle_t xTimerHandle = NULL;
+bool Timer_flag =false;
+void TimerCallback(TimerHandle_t xTimer) {
+    // 获取传递的参数（示例）
+    void *userParam = pvTimerGetTimerID(xTimer);
+    if (userParam != NULL) {
+        *(bool *)userParam = true;
+    }
+
+    
+}
+static void Updata_Demo()
+{
+    xTimerHandle = xTimerCreate(
+        "MyTimer", 
+        (2000/portTICK_PERIOD_MS), 
+        pdTRUE, 
+        (void*)&Timer_flag, // 传递参数
+        TimerCallback
+    );
+
+    if (xTimerHandle == NULL) {
+        printf("Timer creation failed!\n");
+        return;
+    }
+
+    // 启动定时器
+    if (xTimerStart(xTimerHandle, 0) != pdPASS) {
+        printf("Failed to start timer!\n");
+        return;
+    }
+}
+TimerHandle_t trigTimerHandle = NULL;
+void trig_Timer(const int ms)
+{
+        xTimerHandle = xTimerCreate(
+        "trigTimer", 
+        (ms/portTICK_PERIOD_MS), 
+        pdTRUE, 
+        (void*)&Istrig, // 传递参数
+        TimerCallback
+    );
+
+    if (xTimerHandle == NULL) {
+        printf("Timer creation failed!\n");
+        return;
+    }
+
+    // 启动定时器
+    if (xTimerStart(xTimerHandle, 0) != pdPASS) {
+        printf("Failed to start timer!\n");
+        return;
+    }
+}
 void Create_Demo_Task()
 {
     xTaskCreate(Demo_task, "Demo_task", 2048*4, NULL, 5, NULL);
