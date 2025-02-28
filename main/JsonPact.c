@@ -582,8 +582,8 @@ void trig_Timer(const int ms);
  @param 无
  @return 无
 */
-bool IsTimer = false ;//是否开启定时任务
-bool Istrig = true ;//是否开启触发任务
+bool IsTimer = true ;//是否开启定时任务
+volatile bool Istrig = true ;//是否开启触发任务
 static void Demo_task(void *arg)
 {
 
@@ -594,6 +594,7 @@ static void Demo_task(void *arg)
     
     if(IsTimer)Updata_Demo();//开启定时上传
     sendData("{\"Init\":1}\r\n");
+    esp_log_level_set("TAG", ESP_LOG_NONE);
     while (1)
     {
         receiveDataCjson();
@@ -601,22 +602,48 @@ static void Demo_task(void *arg)
         //定时上传具体任务
         if (Timer_flag && IsTimer)
         {
-            //发送根据协议主动上报温度
-            DHT11();
-            JsonData DHT11_hum ={
-                .id = 0,
-                .sensorType = SENSOR_DHT11,
-                .name = "DHT11",
-                .property = "hum",
-                .sensorData = DHT11_DATA_HUM
-            };
-            ReturnJson(&DHT11_hum);
+            static uint8_t count = 0;
+            switch (count)
+            {
+            case 0:
+                {
+                //发送根据协议主动上报温度
+                DHT11();
+                JsonData DHT11_hum ={
+                    .id = 0,
+                    .sensorType = SENSOR_DHT11,
+                    .name = "DHT11",
+                    .property = "hum",
+                    .sensorData = DHT11_DATA_HUM
+                };
+                ReturnJson(&DHT11_hum);
+                }
+                break;
+            
+            case 1:
+                {
+                //发送根据协议主动上报湿度
+                DHT11();
+                JsonData DHT11_temp ={
+                    .id = 0,
+                    .sensorType = SENSOR_DHT11,
+                    .name = "DHT11",
+                    .property = "temp",
+                    .sensorData = DHT11_DATA_TEMP
+                };
+                ReturnJson(&DHT11_temp);
+                }
+            default:
+                count = 0;
+                break;
+            }
+            count++;
             Timer_flag = false;
         }
         //触发任务
         if (Istrig)
         {
-        rc522_read_cardid();
+            rc522_read_cardid();
             if (rc522.value == ACTIVE)
             {
                 ESP_LOGI(TAG, "card: %02x%02x%02x%02x", rc522.card[0], rc522.card[1], rc522.card[2], rc522.card[3]);
@@ -777,9 +804,9 @@ void int_to_RGB(uint32_t number,led_color_t* color)
         number = 0xFFFFFF;
     }
     // 提取或计算RGB分量，确保它们不超过0xFF
-    color->red   = (uint8_t)((number >> 16) & 0xFF);      // 取高8位作为红色分量
+    color->blue   = (uint8_t)((number >> 16) & 0xFF);      // 取高8位作为红色分量
     color->green = (uint8_t)((number >> 8)  & 0xFF);      // 取中间8位作为绿色分量
-    color->blue  = (uint8_t)(number & 0xFF);              // 取低8位作为蓝色分量
+    color->red  = (uint8_t)(number & 0xFF);              // 取低8位作为蓝色分量
 
 }
 void ReturnJson(JsonData *data)
