@@ -1,0 +1,93 @@
+menu "ws2812 config"
+
+    choice WS2812_MODE
+        prompt "ws2812 mode (Strip mode, Matrix mode)"
+        default WS2812_MODE_STRIP
+        help
+            Select the mode of the matrix.
+
+        config WS2812_MODE_STRIP
+            bool "Strip mode"
+            help
+                Select strip mode (single WS2812 strip).
+
+        config WS2812_MODE_MATRIX
+            bool "Matrix mode"
+            help
+                Select WS2812 mode (matrix of WS2812 LEDs).
+    endchoice
+
+    config WS2812_TX_GPIO
+        int "GPIO number for ws2812 TX"
+        default 33
+        help
+            GPIO number for the number TX signal.
+            
+    if WS2812_MODE_STRIP
+        config WS2812_STRIP_LED_NUMBER
+            int "Number of LEDs in the strip"
+            default 12
+            help
+                Number of LEDs in the WS2812 LED strip.
+    endif
+
+    if WS2812_MODE_MATRIX
+        config WS2812_MATRIX_WIDTH
+            int "Matrix width (number of LEDs per row)"
+            default 8
+            help
+                Number of LEDs in each row of the matrix.
+
+        config WS2812_MATRIX_HEIGHT
+            int "Matrix height (number of LEDs per column)"
+            default 8
+            help
+                Number of LEDs in each column of the matrix.
+
+        choice WS2812_MATRIX_START_CORNER
+            prompt "Matrix start corner"
+            default WS2812_MATRIX_START_TOP_RIGHT
+            help
+                Select the starting corner of the LED matrix.
+        
+            config WS2812_MATRIX_START_TOP_LEFT
+                bool "Top left"
+        
+            config WS2812_MATRIX_START_TOP_RIGHT
+                bool "Top right"
+        
+            config WS2812_MATRIX_START_BOTTOM_LEFT
+                bool "Bottom left"
+        
+            config WS2812_MATRIX_START_BOTTOM_RIGHT
+                bool "Bottom right"
+        endchoice
+    
+        choice "Matrix Layout Orientation"
+            prompt "Matrix Layout Orientation"
+            default WS2812_MATRIX_LAYOUT_HORIZONTAL
+            help
+                Choose whether the matrix is row-major or column-major.
+    
+            config WS2812_MATRIX_LAYOUT_HORIZONTAL
+                bool "Row-Major (Horizontal)"
+            
+            config WS2812_MATRIX_LAYOUT_VERTICAL
+                bool "Column-Major (Vertical)"
+        endchoice
+    
+        choice "Matrix Scan Order"
+            prompt "Matrix Scan Order"
+            default WS2812_MATRIX_SCAN_ZIGZAG
+            help
+                Choose the scanning order of the matrix lines.
+    
+            config WS2812_MATRIX_SCAN_PROGRESSIVE
+                bool "Progressive"
+            
+            config WS2812_MATRIX_SCAN_ZIGZAG
+                bool "Zigzag"
+        endchoice
+    endif
+
+endmenu

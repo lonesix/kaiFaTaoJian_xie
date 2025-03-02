@@ -1,0 +1,10 @@
+dependencies:
+  idf:
+    version: '>=4.4.7'
+description: ws2812_control
+files:
+  exclude:
+  - .git
+license: MIT
+url: https://github.com/NingZiXi/ws2812_control
+version: 1.2.0
