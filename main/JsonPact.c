@@ -605,7 +605,7 @@ static void Demo_task(void *arg)
             static uint8_t count = 0;
             switch (count)
             {
-            case 0:
+            case 1:
                 {
                 //发送根据协议主动上报温度
                 DHT11();
@@ -620,7 +620,7 @@ static void Demo_task(void *arg)
                 }
                 break;
             
-            case 1:
+            case 2:
                 {
                 //发送根据协议主动上报湿度
                 DHT11();
@@ -839,6 +839,7 @@ void ReturnJson(JsonData *data)
     else if (jsonType == Command)cJSON_AddStringToObject(root, "type", "command");
     cJSON_AddStringToObject(root, "property", data->property);
     char buffer[BUFFER_SIZE];
+    bool isSend = true;//处理数据特殊情况，不上传
     if (jsonType == Sensor){
         
         switch (data->sensorData)
@@ -933,12 +934,19 @@ void ReturnJson(JsonData *data)
             case DHT11_DATA_TEMP:
                 printf("DHT11传感器数据类型名称是：temp:%.2f\n",dht11.Value.Temp);
                 float_to_string(dht11.Value.Temp,buffer);
+                if (dht11.Value.Temp < 10.0)
+                {
+                    isSend = false;//处理数据特殊情况，不上传
+                }
                 
                 break;
             case DHT11_DATA_HUM:
                 printf("DHT11传感器数据类型名称是：humidity\n");
                 float_to_string(dht11.Value.Hum,buffer);
-                
+                if (dht11.Value.Temp <= 0)
+                {
+                    isSend = false;//处理数据特殊情况，不上传
+                }
                 break;
             case DHT11_DATA_UNKNOWN:
                 printf("DHT11传感器数据类型未知\n");
@@ -1113,10 +1121,11 @@ void ReturnJson(JsonData *data)
         cJSON_AddStringToObject(root, "value", buffer);
     }
     
- 
-    //发送json数据
-    sendJsonData(root);
-
+    if (isSend)
+    {
+        //发送json数据
+        sendJsonData(root);
+    }
  
     // 释放内存
     cJSON_Delete(root);
