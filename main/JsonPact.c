@@ -633,6 +633,19 @@ static void Demo_task(void *arg)
                 };
                 ReturnJson(&DHT11_temp);
                 }
+            case 3:
+                {
+                //发送根据协议主动上报湿度
+                print_adc();
+                JsonData Flame_temp ={
+                    .id = 0,
+                    .sensorType = SENSOR_FLAME,
+                    .name = "Flame",
+                    .property = "raw",
+                    .sensorData = FLAME_DATA_RAW
+                };
+                ReturnJson(&Flame_temp);
+                }
             default:
                 count = 0;
                 break;
