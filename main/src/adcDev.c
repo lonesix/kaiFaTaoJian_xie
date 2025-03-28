@@ -126,11 +126,6 @@ void nADC_init(void) {
         }
     };
     uint8_t arr_index = 0;
-    if (ADC.Flame.isReg)
-    {
-        adc_digi_arr[arr_index].channel = FLAME_ADC_CHANNEL;
-        arr_index++;
-    }
     if (ADC.Light.isReg)
     {
         adc_digi_arr[arr_index].channel = LIGHT_ADC_CHANNEL;
@@ -141,11 +136,21 @@ void nADC_init(void) {
         adc_digi_arr[arr_index].channel = SOIL_ADC_CHANNEL;
         arr_index++;
     }
+    if (ADC.Flame.isReg)
+    {
+        adc_digi_arr[arr_index].channel = FLAME_ADC_CHANNEL;
+        arr_index++;
+    }
     if (ADC.WaterLevel.isReg)
     {
         adc_digi_arr[arr_index].channel = WATER_ADC_CHANNEL;
         arr_index++;
     }
+
+
+
+
+
     adc_continuous_config_t conti_config = {
         .adc_pattern = adc_digi_arr,                // 配置的通道数组
         .conv_mode = ADC_CONV_SINGLE_UNIT_1,        // 只使用ADC1

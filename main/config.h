@@ -8,10 +8,10 @@ extern "C" {
 #include "stdint.h"
 #include <ws2812_control.h>
 /*adcSensor*/
-#define LIGHT_GPIO_PIN 5//环境亮度传感器
-#define SOIL_GPIO_PIN 6//土壤湿度传感器
-#define FLAME_GPIO_PIN 7//火焰传感器
-#define WATER_LEVER_GPIO_PIN 8//水位传感器
+#define LIGHT_GPIO_PIN 8//环境亮度传感器
+#define SOIL_GPIO_PIN 7//土壤湿度传感器
+#define FLAME_GPIO_PIN 6//火焰传感器
+#define WATER_LEVER_GPIO_PIN 5//水位传感器
 /*ADC结构体*/
 typedef struct 
 {
