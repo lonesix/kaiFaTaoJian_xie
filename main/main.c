@@ -251,7 +251,7 @@ void sg90_example()
 void Light_Soil_Flame_WaterLevel_example()
 {
     
-    set_ADC_Init();//可自行设置
+    set_ADC_Init();//不要修改函数内容
     nADC_init();
     while (1)
     {
